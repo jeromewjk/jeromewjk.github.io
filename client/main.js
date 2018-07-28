@@ -318,7 +318,8 @@ Template.calendar.events({
                 count++;
             });
             if(count==0){
-                alert("No schedules for module " + searchModule +".");
+                sAlert.warning("No schedules for module " + searchModule +".", {timeout: 5000, onRouteClose: true});
+                $('[name="searchModule"]').val('');
                 return;
             }
             $('[name="searchModule"]').val('');
@@ -335,6 +336,9 @@ Template.calendar.events({
 
 //            SearchAndParse(searchModule);
             var localList = Events.find({module: searchModule}).fetch();
+            if(localStorage.getItem(searchModule)!== null){
+                return;
+            }
             localStorage.setItem(searchModule, JSON.stringify(localList));
             var array = Events.find({module:searchModule}).fetch();
 
@@ -347,7 +351,6 @@ Template.calendar.events({
                 var day = 1000*60*60*24;
                 var diff = Math.ceil((todayDate.getTime()-currentDate.getTime())/(day));
                 var color1;
-                console.log(array[i]);
                 if(diff > 0){
                     color1 = "#011f4b";
                 } else if (diff<-6){
@@ -399,12 +402,14 @@ Template.calendar.events({
 //                });
 
 function SearchAndParse (moduleName) {
+    var newArr=[];
+    if(moduleName!== ""){
     var array = Events.find({module:moduleName}).fetch();
     var i = 1;
 
+
 //        console.log(JSON.stringify(array));
 
-    var newArr = [];
     for (i = 0; i < array.length; i++) {
         var tempObj = {
             id: i,
@@ -418,8 +423,28 @@ function SearchAndParse (moduleName) {
         }
         newArr.push(tempObj);
     }
-//    console.log(newArr);
+} else {
+    if(localStorage.key(0) !==null){
+    var array = JSON.parse(localStorage.getItem("CS1231"));
 
+
+            for (i = 0; i < array.length; i++) {
+                var tempObj = {
+            id: i,
+            title: array[i].title,
+            module: array[i].module,
+            start: array[i].startDate,
+            type: array[i].type,
+            description: array[i].description,
+            createdBy: array[i].createdBy,
+            completed: array[i].completed
+        }
+        newArr.push(tempObj);
+    }
+}
+
+   console.log(newArr);
+}
     $('#calendarDiv').fullCalendar({
         // themeSystem: 'bootstrap3',
         header: {

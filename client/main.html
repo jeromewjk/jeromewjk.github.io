@@ -172,6 +172,14 @@
     Search module:
     <input type="text" placeholder="e.g - CS2100" name="searchModule">
 </form></li>
+<button class="resetModule" id="resetModule" onclick="doFunction()"> Reset searched modules </button>
+
+<script>
+    function doFunction(){
+        localStorage.clear();
+    }
+</script> 
+
     <div>
         <div id="calendarDiv"></div>
         {{> sAlert}}
