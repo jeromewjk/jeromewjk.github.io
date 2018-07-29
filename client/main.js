@@ -42,14 +42,14 @@ Template.eventList.helpers({
 });
 
 function searchEvents() {
-    console.log('searchEvents called');
+    // console.log('searchEvents called');
      var list = [];
         for (var i = 0; i < localStorage.length; i++) {
-            console.log('inside for loop');
+            // console.log('inside for loop');
             if (localStorage.getItem(localStorage.key(i)) == null) {
                 continue;
             }
-            console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
+            // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
             list = list.concat(JSON.parse(localStorage.getItem(localStorage.key(i))));
         }
 //        localStorage.clear();
@@ -66,7 +66,7 @@ Template.listModules.helpers({
             createdBy: currentUser,
             startDate: { $gte: new Date() }
         }).fetch();
-        console.log(stuff);
+        // console.log(stuff);
         return stuff;
     },
 
@@ -102,7 +102,7 @@ Template.module.events({
                     if (confirm) {
                         array.splice(j, 1);
                         localStorage.setItem(key, array);
-                        console.log('module deleted');
+                        // console.log('module deleted');
                         console.log(array);
                         return;
                     }
@@ -314,7 +314,7 @@ Template.calendar.events({
             searchModule = searchModule.toUpperCase();
             var count = 0;
             Events.find({module: searchModule}).forEach(function(doc){
-                console.log("found");
+                // console.log("found");
                 count++;
             });
             if(count==0){
@@ -324,17 +324,6 @@ Template.calendar.events({
             }
             $('[name="searchModule"]').val('');
 
-            /*var current = Events.find({module: "CS1010"});
-            var word = current.valueOf(module);
-            console.log(word);
-            var myCursor = Events.find({module: searchModule});
-            myCursor.forEach(console.log("found"));
-            myCursor.forEach(
-                console.log("found")
-
-                )*/
-
-//            SearchAndParse(searchModule);
             var localList = Events.find({module: searchModule}).fetch();
             if(localStorage.getItem(searchModule)!== null){
                 return;
@@ -361,7 +350,7 @@ Template.calendar.events({
                     color1 = "#fd254f";
                     sAlert.success(array[i].title + "\n due on : " + array[i].date +"/"+ array[i].month+"/" + array[i]. year,
                      {effect: 'genie', position: 'bottom-right',
-                      timeout: 30000, onRouteClose: false, stack: true, offset: '10px'});
+                      timeout: 8000, onRouteClose: true, stack: true, offset: '10px'});
                 }
 
 //                var tempObj = {
@@ -390,27 +379,39 @@ Template.calendar.events({
 
 //               newArr.push(tempObj);
             }
-            console.log(newArr);
+            // console.log(newArr);
             console.log("Success!");
         }
     });
 
-//    $('#calendar').fullCalendar('renderEvent', {
-//                  title: 'dynamic event',
-//                  start: new Date(),
-//                  allDay: true
-//                });
-
 function SearchAndParse (moduleName) {
-    var newArr=[];
-    if(moduleName!== ""){
-    var array = Events.find({module:moduleName}).fetch();
-    var i = 1;
+     var newArr=[];
+    var keyCount = 0;
+    for (keyCount = 0; keyCount < localStorage.length; keyCount++){
 
+        var moduleSearch = localStorage.key(keyCount);
+        var array = Events.find({module: moduleSearch}).fetch();
 
-//        console.log(JSON.stringify(array));
+        for (i = 0; i < array.length; i++) {
+        // console.log(array[i].startDate);
+         var currentDate = array[i].startDate;
+         var todayDate = new Date();
+        var day = 1000*60*60*24;
+        var diff = Math.ceil((todayDate.getTime()-currentDate.getTime())/(day));
+        var color1;
 
-    for (i = 0; i < array.length; i++) {
+        if(diff > 0){
+                    color1 = "#011f4b";
+                } else if (diff<-6){
+                    color1 = "#0099ff";
+                } else if (diff < -2){
+                    color1 = "#6aa87b";
+                } else {
+                    color1 = "#fd254f";
+                    sAlert.success(array[i].title + "\n due on : " + array[i].date +"/"+ array[i].month+"/" + array[i]. year,
+                     {effect: 'genie', position: 'bottom-right',
+                      timeout: 8000, onRouteClose: true, stack: true, offset: '10px'});
+                }
         var tempObj = {
             id: i,
             title: array[i].title,
@@ -419,32 +420,13 @@ function SearchAndParse (moduleName) {
             type: array[i].type,
             description: array[i].description,
             createdBy: array[i].createdBy,
-            completed: array[i].completed
+            completed: array[i].completed,
+            color: color1
         }
         newArr.push(tempObj);
-    }
-} else {
-    if(localStorage.key(0) !==null){
-    var array = JSON.parse(localStorage.getItem("CS1231"));
-
-
-            for (i = 0; i < array.length; i++) {
-                var tempObj = {
-            id: i,
-            title: array[i].title,
-            module: array[i].module,
-            start: array[i].startDate,
-            type: array[i].type,
-            description: array[i].description,
-            createdBy: array[i].createdBy,
-            completed: array[i].completed
         }
-        newArr.push(tempObj);
-    }
-}
-
-   console.log(newArr);
-}
+        // console.log("im runningggg");
+};
     $('#calendarDiv').fullCalendar({
         // themeSystem: 'bootstrap3',
         header: {
@@ -456,9 +438,6 @@ function SearchAndParse (moduleName) {
         editable: false,
         events: newArr,
 
-        // dayClick: function(date) {
-        //     alert("Clicked on " + date.format());
-        // },
            eventClick: function(event) {
                  var print = ("Event title: " + event.title +
                      "\nModule: " + event.module +
