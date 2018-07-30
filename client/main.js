@@ -442,7 +442,7 @@ Template.calendar.events({
                         print += "<br>Happening on: " + moment(array[i].startDate).format("Do MMM YY") +
                         ", " + moment(array[i].startDate).format("hh:mm A");
                     }
-                    sAlert.warning(print,{effect: 'genie', position: 'bottom-right',
+                    sAlert.info(print,{effect: 'genie', position: 'bottom-right',
                     timeout: 8000, onRouteClose: true, stack: true, offset: '10px', html:true});
                 }
 
@@ -495,7 +495,7 @@ function SearchAndParse (moduleName) {
                     print += "<br>Happening on: " + moment(array[i].startDate).format("Do MMM YY") +
                     ", " + moment(array[i].startDate).format("hh:mm A");
                 }
-                sAlert.warning(print,{effect: 'genie', position: 'bottom-right',
+                sAlert.info(print,{effect: 'genie', position: 'bottom-right',
                     timeout: 8000, onRouteClose: true, stack: true, offset: '10px', html:true});
             }
             var tempObj = {
