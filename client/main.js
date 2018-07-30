@@ -514,6 +514,60 @@ function SearchAndParse (moduleName) {
         }
     };
 
+    if(Meteor.userId() !== null){
+        var currentUser = Meteor.userId();
+        var array = Events.find({createdBy: currentUser}).fetch();
+        var i;
+        var j;
+        for(i = 0; i < array.length; i++){
+            if(localStorage.getItem(array[i].modulee)!== null){
+                break;
+            } else {
+                var currentDate = array[i].startDate;
+                var todayDate = new Date();
+                var day = 1000*60*60*24;
+                var diff = Math.ceil((todayDate.getTime()-currentDate.getTime())/(day));
+                var color1;
+
+            if(diff > 0){
+                color1 = "#011f4b";
+            } else if (diff<-6){
+                color1 = "#0099ff";
+            } else if (diff < -2){
+                color1 = "#6aa87b";
+            } else {
+                color1 = "#fd254f";
+
+                var print = array[i].title;
+                if(array[i].type == "Quiz" || array[i].type == "Assignment"){
+                    print += "<br>Due on: " + moment(array[i].startDate).format("Do MMM YY") +
+                    ", " + moment(array[i].startDate).format("hh:mm A");
+                } else {
+                    print += "<br>Happening on: " + moment(array[i].startDate).format("Do MMM YY") +
+                    ", " + moment(array[i].startDate).format("hh:mm A");
+                }
+                sAlert.info(print,{effect: 'genie', position: 'bottom-right',
+                    timeout: 8000, onRouteClose: true, stack: true, offset: '10px', html:true});
+            }
+            var tempObj = {
+                id: i,
+                title: array[i].title,
+                module: array[i].module,
+                start: array[i].startDate,
+                end: array[i].endDate,
+                type: array[i].type,
+                description: array[i].description,
+                createdBy: array[i].createdBy,
+                completed: array[i].completed,
+                color: color1
+            }
+            newArr.push(tempObj);
+            }
+    }
+};
+
+
+
     $('#calendarDiv').fullCalendar({
         header: {
             left: 'agendaDay, agendaWeek, month',
