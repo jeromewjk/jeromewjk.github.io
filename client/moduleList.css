@@ -1,0 +1,21 @@
+.li-listModule{
+	list-style-type:none;
+	border: 1px solid #ececec;
+	background-color: #bdbcbc;
+	border-radius: 20px;
+	padding: 8px 20px;
+	margin: 0px 0px 20px 0px;
+	max-width: 500px;
+}
+
+.li-listModule:hover{
+	background-color: #8b8686;
+}
+
+.deleteModuleEvents{
+	float:right;
+}
+
+.input-deleteModuleList{
+	width: 230px;
+}

@@ -1,5 +1,4 @@
 <template name="login">
-
     <h2>Login</h2>
     <form class="login">
         <p><input type="email" placeholder="Email" name="email" class="login-size" required></p>
@@ -9,39 +8,22 @@
 </template>
 
 <template name="default">
-    <p>Welcome to V.I.Dates</p>
     {{> calendar}}
 </template>
 
 <template name="main">
     <div class="BG">
         <div class="bubbleBG">    
-    <!-- <h1>V.I.Dates</h1> -->
     {{> navigation}}
-    {{#if currentUser}}
-
-    {{/if}}
     {{> yield}}
     <hr />
-    <p>Copyright &copy; V.I.Dates, 2018</p>
   </div>
 </div>
 </template>
 
 <template name="navigation">
-   <!--  <ul>
-        {{#if currentUser}}
-        <a href="{{pathFor route='home'}}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-home"></span> Home</button></a>
-        <a id="aLogout" href="#" class="logout"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-off"></span> Logout</button></a>
-        {{else}}
-        <a href="{{pathFor route='default'}}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-calendar"></span> Calendar</button></a>
-        <a href="{{pathFor route='register'}}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Register</button></a>
-        <a href="{{pathFor route='login'}}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-off"></span> Login</button></a>
-        <a href="{{pathFor route='eventList'}}"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span> Event List</button></a>
-        {{/if}}
-    </ul> -->
 
- <aside class="sidebar-left"> 
+ <aside class="sidebar-left" id="sidebar-left"> 
     <img src="/images/logo.png" class="icon">
     <div class="sidebar-links">
         {{#if currentUser}}
@@ -59,6 +41,20 @@
     </div>
 </aside>
 
+<script>
+// Add active class to the current button (highlight it)
+if(document.getElementById("sidebar-links") !== null){
+var header = document.getElementById("sidebar-links");
+var btns = header.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+}
+</script>
 </template>
 
 <template name="eventList">
@@ -69,29 +65,6 @@
         {{/each}}
     </ul>
 </template>
-
-<!--<template name="addList">-->
-    <!--<form>Create a list:-->
-        <!--<input type="text" placeholder="List name here..." name="listName">-->
-    <!--</form>-->
-<!--</template>-->
-
-<!--<template name="lists">-->
-    <!--<h2>Lists</h2>-->
-    <!--{{> addList}}-->
-    <!--<ul>-->
-        <!--{{#if Template.subscriptionsReady}}-->
-        <!--{{#each list}}-->
-        <!--<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>-->
-        <!--{{/each}}-->
-        <!--{{/if}}-->
-    <!--</ul>-->
-<!--</template>-->
-
-<!--<template name="listPage">-->
-    <!--<h2>Tasks: {{name}}</h2>-->
-    <!--{{> todos}}-->
-<!--</template>-->
 
 <template name="register">
     <h2>Register</h2>
@@ -108,71 +81,61 @@
 </template>
 
 <template name="home">
-    <!-- {{#if currentUser}}
-    <ul id="ul1">
-        <li id="li1"><a href="{{pathFor route='newEvent'}}">New Event</a></li>
-        <li id="li1"><a href="{{pathFor route='listModules'}}">Module List</a></li>
-    </ul>
-    {{/if}} -->
     {{> calendar}}
 </template>
 
 <template name="newEvent">
     <h2>New Event</h2>
     <form class="newEvent">
-        <p><label for="module">Module: </label><input type="text" placeholder="CS1010" name="module" required></p>
-        <p><label for="date">DD: </label><input type="number" placeholder="17" name="date" required>
-            <label for="month">MM: </label><input type="number" placeholder="8" name="month" required>
-            <label for="date">YYYY: </label><input type="number" placeholder="2018" name="year" required></p>
-        <p><label for="startTime">Start Time: </label><input type="number" placeholder="19" name="startTime" required> 00</p>
-        <p><label for="endTime">End Time: </label><input type="number" placeholder="21" name="endTime">00</p>
-        <p><label for="type">Type: </label>            
-        <select id="dropList">
+        <p><label for="module">Module: </label><input type="text" placeholder="e.g - CS1010" name="module" required></p>
+        <p><label for="date">Date: </label><input type="number" placeholder="e.g - 17" class="numberInput" name="date" required>
+            <label for="month">Month: </label><input type="number" placeholder="e.g - 8" class="numberInput" name="month" required>
+            <label for="date">Year: </label><input type="number" placeholder="e.g - 2018" class="numberInput" name="year" required></p>
+        <p><label for="startTime">Start Time: </label><input type="number" placeholder="0-23 hour" class="numberInput" name="startTime" required> :00</p>
+        <p><label for="endTime">End Time: </label><input type="number" placeholder="0-23 hour" class="numberInput" name="endTime"> :00</p>
+        <p><label for="type">Type:</label><select id="dropList" required>
+            <option value="" disabled selected> Type of announcement..</option>
             <option id="Exam"> Exam </option>
             <option id="Assignment"> Assignment</option>
             <option id="Quiz"> Quiz </option>
-            <option id="Misc"> Miscellaneous </option>
+            <option id="Misc"> Misc </option>
         </select>
     </p>
-
-
-
-        <p><label for="description">Description: </label><input typer="text" placeholder="Description of Event" name="description"></p>
+    <p><label for="description">Description: </label><input typer="text" placeholder="More details ..." name="description"></p>
         <p><button type="submit" value="Create Event" class="btn btn-success">Create Event</button></p>
-
-
     </form>
 </template>
 
 <template name="listModules">
+    <div class="listModule" id="listModule">
+        {{> sAlert}}
     <h2>List of Modules</h2>
+    <form class="deleteModuleEvents">
+        <input class="input-deleteModuleList" type="text" placeholder = "Enter module code to clear events" name="deleteModuleEvents" width="20">
+        <button type="submit" value="Register" id="submit-button" class="btn btn-danger">Delete events</button>
+    </form>
     <ul>
     {{#each item}}
-        <li>{{> module}}</li>
+        <li class="li-listModule">{{> module}}</li>
     {{/each}}
     </ul>
+</div>
+    <!-- <p id="p3"></p> -->
 </template>
 
 <template name="module">
     {{module}} {{type}} on {{date}}/{{month}}/{{year}} at {{startTime}}00 till {{endTime}}00
     {{#if currentUser}}
         <a id="a2" href="#" class="delete-event">Delete</a>
-    <!-- {{else}}
-        <a id="a2" href="#" class="delete-module">Delete</a> -->
     {{/if}}
 </template>
-
-<!--<template name="event">-->
-    <!--{{module}} {{type}} on {{date}}/{{month}}/{{year}} at {{startTime}}00 till {{endTime}}00-->
-    <!--<a id="a2" href="#" class="delete-module">Delete</a>-->
-<!--</template>-->
 
 <template name="calendar">
     <li class="search"><form>
     Search module:
     <input type="text" placeholder="e.g - CS2100" name="searchModule">
 </form></li>
-<button class="resetModule" id="resetModule" onclick="doFunction()"> Reset searched modules </button>
+<button class="btn btn-danger active" id="resetModule" onclick="doFunction()"> Reset searched modules </button>
 
 <script>
     function doFunction(){

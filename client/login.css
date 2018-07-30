@@ -21,3 +21,8 @@
 	margin-bottom: 10px;
 	border-radius: 2px;
 }
+
+label.error{
+  min-width: 200px;
+  text-align: center;
+}

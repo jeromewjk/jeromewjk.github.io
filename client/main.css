@@ -1,27 +1,19 @@
 .bubbleBG
 {
-  /*width: 100%;
-  height: 100%;
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1;
-  background-image: url(/images/gradient-blue.png); */
-
-  max-width: 1000px;
+max-width: 1000px;
   padding-top: 40px;
   padding-right: 40px;
   margin: 0 0 40px 250px;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .BG{
   background-image: url(/images/gradient-sky.jpg);
-  min-height: 100%;
+  min-height: 800px;
   min-width: 1024px;
-  
+  background-size: cover;
   width: 100%;
   height: auto;
   
-  position: fixed;
   top: 0;
   left: 0;
 }
@@ -31,98 +23,38 @@
   padding: 0px;
 }
 
-
-/*#aLogout {
+#a2{
+  background-color: #E6002E;
+  border: none;
   float: right;
-  margin-right: 45px;
-}*/
-
-h1 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-font-size: 40px;
-letter-spacing: 2px;
-word-spacing: 2px;
-text-align: center;
-border-bottom: 2px solid #009;
-margin-bottom: 50px;
-color: #C20000;
-font-weight: 1000;
-text-transform: uppercase;
-}
-
-/* Black block */
-#ul1 {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    }
-#li1 {
-    float: left;
-  }
-
-#li1 a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  #li1 a:hover:not(.active) {
-    background-color: #4CAF50;
-  }
-
-  #li1 .active {
-    background-color:#4CAF50;
-  }
-/*Right side shift for list*/
-#li2 {
-    float: right;
-  }
-
-#li2 a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  #li2 a:hover:not(.active) {
-    background-color: #4CAF50;
-  }
-
-  #li2 .active {
-    background-color:#4CAF50;
-  }
-
-  #a2{background-color: #E6002E;
-    border: none;
-    border-radius: 25px;
-    color: white;
-    padding: 1px 10px;
-    text-align: center;
+  border-radius: 25px;
+  color: white;
+  padding: 1px 10px;
+  text-align: center;
     text-decoration: none;
     display: inline;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: -2px;
     cursor: pointer;
   }
-
-  .search {
+  
+.search {
     list-style-type:none;
-    position: fixed;
     left: 280px;
-    font-family: arial, sans-serif;
+    font-family: Times New Roman, sans-serif;
     font-weight: 600;
     font-size: 20px;
+
+  }
+
+#resetModule{
+      margin-top: 0px;
+      float: right;
+      margin-right: 30px;
     }
 
-    .resetModule{
-      margin-top: 30px;
-    }
 
-    label{
+label{
 width:80px;
 margin-right:30px;
 text-align:right;
@@ -133,35 +65,39 @@ text-align:right;
     color: #fff;
 }
 
-.s-alert-top-right {
-  /*position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
-  margin: auto;*/
-
-
- /* display: inline-block;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 200px;
-    height: 200px;
-    margin: auto;*/
-
+.s-alert-top-right { /*center popup*/
     display: inline-block;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 350px;
+    top: 30%;
+    left: 40%;
 }
+
+.s-alert-bottom-right{
+    width: 300px;
+    line-height: 1.2;
+    padding: 15px;
+    margin: -10px;
+}
+
+
 
 #calendarDiv {
   max-width: 900px;
-  margin: 20px auto;
+  margin: 60px auto;
   color: 2px solid grey;
 }
 
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}
+
+.numberInput {
+  width: 85px;
+}
