@@ -8,14 +8,18 @@ max-width: 1000px;
 
 .BG{
   background-image: url(/images/gradient-sky.jpg);
-  min-height: 800px;
+  /*min-height: 900px;
   min-width: 1024px;
   background-size: cover;
   width: 100%;
   height: auto;
   
   top: 0;
-  left: 0;
+  left: 0;*/
+  height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 *{

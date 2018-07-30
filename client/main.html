@@ -16,7 +16,6 @@
         <div class="bubbleBG">    
     {{> navigation}}
     {{> yield}}
-    <hr />
   </div>
 </div>
 </template>
@@ -36,7 +35,7 @@
         <a href="{{pathFor route='default'}}" class="calendarButton"><li><span class="glyphicon glyphicon-calendar" style="color:#0099ff"></span> Calendar</li></a>
         <a href="{{pathFor route='register'}}" class="registerButton"><li><span class="glyphicon glyphicon-user" style="color:#cc33ff"></span> Register</li></a>
         <a href="{{pathFor route='login'}}" class="loginButton"><li><span class="glyphicon glyphicon-off" style="color:#00cc00"></span> Login</li></a>
-        <a href="{{pathFor route='eventList'}}" class="eventListButton"><li><span class="glyphicon glyphicon-th-list" style="color:#ffff00"></span> Event List</li></a>
+        <!-- <a href="{{pathFor route='eventList'}}" class="eventListButton"><li><span class="glyphicon glyphicon-th-list" style="color:#ffff00"></span> Event List</li></a> -->
         {{/if}}
     </div>
 </aside>
