@@ -77,6 +77,21 @@ Template.listModules.events({
             sAlert.warning("No events created for this module.", {timeout: 5000, onRouteClose: true});
         }
     },
+    'click .li-listModule' : function(event){
+        event.preventDefault();
+        var currentId = this._id;
+        var content = Events.find({_id: currentId}).fetch();
+        console.log(content);
+        var print = ("Event title: " + content[0].title +
+                     "<br>Module: " + content[0].module +
+                     "<br>Date & Time: " + moment(content.startDate).format("Do MMM YY") +
+                      ", " + moment(content[0].startDate).format("hh:mm A") + 
+                      " to " + moment(content[0].endDate).format("hh:mm A"));
+                 if(content[0].description !== ""){
+                    print = print + "<br>Description: " + content[0].description;
+                 };                    
+                 sAlert.warning(print,{effect: 'scale', position: 'top-right', timeout: 'none',onRouteClose: true, stack: true, offset: '80px', html: true});
+            },
 });
 
 Template.listModules.helpers({
