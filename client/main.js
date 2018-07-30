@@ -222,8 +222,14 @@ Template.newEvent.onRendered(function(){
                 });
                 var localList = Events.find({module: module}).fetch();
                 localStorage.setItem(module, JSON.stringify(localList));
+                var print = ("Event Created!\n" +
+                    "Module: " + module + "\n" +
+                    "Date: " + date + "/" + month + "/" + year + "\n" +
+                    "From: " + startTime + "00 To: " + endTime + "00\n" +
+                    "Type: " + type + "\n" +
+                    "Description: " + description);
+                alert(print);
                 Router.go('home');
-                sAlert.warning("Event created!" + module +".", {timeout: 5000, onRouteClose: true});
 
             }
         }
