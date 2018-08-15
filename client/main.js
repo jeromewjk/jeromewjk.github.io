@@ -520,7 +520,7 @@ function SearchAndParse (moduleName) {
         var i;
         var j;
         for(i = 0; i < array.length; i++){
-            if(localStorage.getItem(array[i].modulee)!== null){
+            if(localStorage.getItem(array[i].module)!== null){
                 break;
             } else {
                 var currentDate = array[i].startDate;
