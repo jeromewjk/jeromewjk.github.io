@@ -85,6 +85,7 @@ for (var i = 0; i < btns.length; i++) {
 
 <template name="newEvent">
     <h2>New Event</h2>
+    {{> sAlert}}
     <form class="newEvent">
         <p><label for="module">Module: </label><input type="text" placeholder="e.g - CS1010" name="module" required></p>
         <p><label for="date">Date: </label><input type="number" placeholder="e.g - 17" class="numberInput" name="date" required>

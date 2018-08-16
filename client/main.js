@@ -237,14 +237,16 @@ Template.newEvent.onRendered(function(){
                 });
                 var localList = Events.find({module: module}).fetch();
                 localStorage.setItem(module, JSON.stringify(localList));
-                var print = ("Event Created!\n" +
-                    "Module: " + module + "\n" +
-                    "Date: " + date + "/" + month + "/" + year + "\n" +
-                    "From: " + startTime + "00 To: " + endTime + "00\n" +
-                    "Type: " + type + "\n" +
-                    "Description: " + description);
-                alert(print);
-                Router.go('home');
+                var print = ("Event Created!<br>" + 
+                    "<br>Module: " + module +
+                    "<br>Date: " + date + "/" + month + "/" + year +
+                    "<br>From: " + startTime + "00 To: " + endTime + "00" +
+                    "<br>Type: " + type +
+                    "<br>Description: " + description);
+                sAlert.warning(print, {timeout: 7000, onRouteClose: true,html: true, onClose: function(){ 
+                    Router.go('home');
+                }
+            });
 
             }
         }
@@ -403,10 +405,14 @@ Template.calendar.events({
                 count++;
             });
             if(count==0){
-                sAlert.warning("No schedules for module " + searchModule +".", {timeout: 5000, onRouteClose: true});
+                if(searchModule == ""){
+                    sAlert.warning("No module code entered.", {timeout: 5000, onRouteClose: true, stack: { limit: 1}});
+                } else {
+                sAlert.warning("No schedules for module " + searchModule +".", {timeout: 5000, onRouteClose: true, stack: { limit: 1}});
                 $('[name="searchModule"]').val('');
                 return;
             }
+        }
             $('[name="searchModule"]').val('');
 
             var localList = Events.find({module: searchModule}).fetch();
