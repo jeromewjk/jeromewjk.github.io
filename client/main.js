@@ -592,7 +592,7 @@ function SearchAndParse (moduleName) {
                  if(event.description !== ""){
                     print = print + "<br>Description: " + event.description;
                  };                    
-                 sAlert.warning(print,{effect: 'scale', position: 'top-right', timeout: 'none',onRouteClose: true, stack: true, offset: '80px', html: true});
+                 sAlert.warning(print,{effect: 'scale', position: 'top-right', timeout: 'none',onRouteClose: true, stack: { limit: 1}, offset: '80px', html: true});
             },
         });
      }
